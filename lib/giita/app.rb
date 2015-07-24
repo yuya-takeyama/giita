@@ -38,7 +38,7 @@ module Giita
       @parsed_body = @@octokit.markdown(@issue.body, {mode: 'gfm', context: @@github_project})
       @parsed_body.force_encoding "UTF-8"
 
-      slim :'items/index', locals: {
+      slim :'items/show', locals: {
         title: @issue.title
       }
     end
