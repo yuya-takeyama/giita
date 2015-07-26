@@ -1,0 +1,81 @@
+body
+  font-size: 16px
+  font-family: "Helvetica Neue", Helvetica, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif
+  background-color: #f6f6f6
+
+.item-list-container
+  @extend .white-container
+  padding: 1.2em 2.0em
+
+.item-list-item
+  @extend .clearfix
+  border-top: 1px solid #f6f6f6
+  padding: 1em 0
+  clear: both
+
+  .item-list-item-avatar
+    float: left
+    height: 40px
+    vertical-align: middle
+
+    img
+      border-radius: 6px
+
+  .item-list-item-container
+    padding-left: 50px
+
+    .item-list-item-container-header
+      @extend .clearfix
+      height: 1.6em
+
+      .item-list-item-author
+        float: left
+
+      .item-list-item-time
+        float: right
+
+    .item-list-item-container-body
+      .item-list-item-title
+        font-size: 140%
+        float: left
+
+.article
+  @extend .white-container
+  padding: 1.2em 2.8em
+
+  .article-subject h1
+    font-size: 40px
+
+  .article-body
+    font-size: 1em
+
+    h1
+      border-bottom: 3px #f6f6f6 solid
+      padding: 0.4em 0
+      font-size: 24px
+
+    h2
+      border-bottom: 1px #f6f6f6 solid
+      padding: 0.2em 0
+      font-size: 22px
+
+    h3
+      font-size: 20px
+
+    h4
+      font-size: 18px
+
+    h5
+      font-size: 16px
+
+.white-container
+  background-color: #fff
+  border: 1px #eee solid
+  border-radius: 6px
+
+.clearfix
+  *zoom: 1
+  &:after
+    content: ""
+    display: table
+    clear: both

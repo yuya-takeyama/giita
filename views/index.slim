@@ -1,0 +1,21 @@
+.container-fluid
+  .row
+    .col-md-12
+      .item-list-container
+        - @issues.each do |issue|
+          .item-list-item
+            .item-list-item-avatar
+              a href="/users/#{issue.user.login}"
+                img src=issue.user.avatar_url width=40 heigh=40
+            .item-list-item-container
+              .item-list-item-container-header
+                .item-list-item-author
+                  a href="/users/#{issue.user.login}"
+                    = issue.user.login
+                .item-list-item-time
+                  .timeago title=issue.created_at.iso8601
+                    = issue.created_at
+              .item-list-item-container-body
+                .item-list-item-title
+                  a href="/items/#{issue.number}"
+                    = issue.title

@@ -1,0 +1,16 @@
+{
+  "name": "Giita",
+  "description": "Qiita like information sharing tool built on GitHub Issues",
+  "repository": "https://github.com/yuya-takeyama/giita",
+  "keywords": ["qiita", "github", "issues", "markdown"],
+  "env": {
+    "GITHUB_ACCESS_TOKEN": {
+      "description": "Access token for GitHub API",
+      "required": true
+    },
+    "GITHUB_PROJECT": {
+      "description": "GitHub project name in USER_NAME/REPO_NAME format",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+.container-fluid
+  .row
+    .col-md-12
+      .article
+        .article-subject
+          h1
+            = @issue.title
+        .article-body
+          div
+            == @parsed_body

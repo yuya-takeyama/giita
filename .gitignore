@@ -1,0 +1,9 @@
+/.bundle/
+/.envrc
+/.sass-cache/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/spec/reports/
+/tmp/
