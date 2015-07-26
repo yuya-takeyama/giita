@@ -13,4 +13,5 @@ group :development do
   gem 'sinatra-contrib'
   gem 'guard'
   gem 'guard-livereload'
+  gem 'foreman'
 end
