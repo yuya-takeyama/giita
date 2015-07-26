@@ -2,6 +2,8 @@
 
 Qiita like information sharing tool built on GitHub Issues
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/yuya-takeyama/giita.
