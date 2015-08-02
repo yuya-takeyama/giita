@@ -16,5 +16,5 @@
                   = issue.created_at
             .item-list-item-container-body
               .item-list-item-title
-                a href="/items/#{issue.number}"
+                a href="/users/#{issue.user.login}/items/#{issue.number}"
                   = issue.title

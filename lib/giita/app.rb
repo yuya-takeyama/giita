@@ -33,7 +33,7 @@ module Giita
       slim :index
     end
 
-    get '/items/:number' do
+    get '/users/:user_login/items/:number' do
       @issue = @@octokit.issue @@github_project, params[:number]
       @parsed_body = @@octokit.markdown(@issue.body, {mode: 'gfm', context: @@github_project})
       @parsed_body.force_encoding "UTF-8"
