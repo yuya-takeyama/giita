@@ -42,7 +42,7 @@ module Giita
 
     get '/users/:user_login/items/:number' do
       @issue = @@octokit.issue @@github_project, params[:number]
-      @parsed_body = @@markdown_parser.parse(@issue.body)
+      @issue.parsed_body = @@markdown_parser.parse(@issue.body)
 
       slim :'items/show', locals: {
         title: @issue.title
