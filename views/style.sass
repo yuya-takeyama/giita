@@ -50,26 +50,38 @@ body
     font-size: 40px
 
   .article-body
+    @extend .headings
     font-size: 1em
 
-    h1
-      border-bottom: 3px #f6f6f6 solid
-      padding: 0.4em 0
-      font-size: 24px
+.comments
+  padding-left: 2em
 
-    h2
-      border-bottom: 1px #f6f6f6 solid
-      padding: 0.2em 0
-      font-size: 22px
+  .comment
+    .comment-avatar
+      float: left
+      height: 40px
 
-    h3
-      font-size: 20px
+  .comment-container
+    padding: 0.2em 0
 
-    h4
-      font-size: 18px
+    .comment-header
+      height: 40px
 
-    h5
-      font-size: 16px
+      .comment-author
+        height: 40px
+        float: left
+        margin: auto 0.4em
+
+      .comment-time
+        height: 40px
+        float: right
+        margin: auto 0.4em
+
+    .comment-body
+      @extend .white-container
+      @extend .headings
+      margin: 0.5em 0
+      padding: 0.2em 0.5em
 
 .white-container
   background-color: #fff
@@ -82,3 +94,23 @@ body
     content: ""
     display: table
     clear: both
+
+.headings
+  h1
+    border-bottom: 3px #f6f6f6 solid
+    padding: 0.4em 0
+    font-size: 24px
+
+  h2
+    border-bottom: 1px #f6f6f6 solid
+    padding: 0.2em 0
+    font-size: 22px
+
+  h3
+    font-size: 20px
+
+  h4
+    font-size: 18px
+
+  h5
+    font-size: 16px

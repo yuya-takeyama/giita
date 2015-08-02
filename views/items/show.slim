@@ -7,3 +7,17 @@
       .article-body
         div
           == @issue.parsed_body
+    .comments
+      - @comments.each do |comment|
+        .comment
+          .comment-container
+            .comment-avatar
+              img src=comment.user.avatar_url width=40 heigh=40
+
+            .comment-header
+              .comment-author
+                = comment.user.login
+              .comment-time.timeago title=comment.created_at.iso8601
+                = comment.created_at
+            .comment-body
+              == comment.parsed_body

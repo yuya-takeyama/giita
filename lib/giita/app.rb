@@ -47,6 +47,12 @@ module Giita
     get '/users/:user_login/items/:number' do
       @issue = @@octokit.issue @@github_project, params[:number]
       @issue.parsed_body = @@markdown_parser.parse(@issue.body)
+      @comments = @@octokit
+        .issue_comments(@@github_project, params[:number])
+        .map do |comment|
+          comment.parsed_body = @@markdown_parser.parse(comment.body)
+          comment
+        end
 
       slim :'items/show', locals: {
         title: @issue.title
