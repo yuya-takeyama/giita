@@ -14,4 +14,6 @@ group :development do
   gem 'guard'
   gem 'guard-livereload'
   gem 'foreman'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end

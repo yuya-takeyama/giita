@@ -25,6 +25,7 @@ module Giita
       )
 
       app_root = File.dirname(__FILE__) + '/../..'
+      set :app_root, app_root
       set :public_folder, app_root + '/public'
       set :views, app_root + '/views'
     end
@@ -32,6 +33,9 @@ module Giita
     configure :development do
       require 'sinatra/reloader' if development?
       register Sinatra::Reloader
+      require 'better_errors'
+      use ::BetterErrors::Middleware
+      ::BetterErrors.application_root = settings.app_root
     end
 
     get '/' do
