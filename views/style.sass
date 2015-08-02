@@ -19,7 +19,7 @@ body
     vertical-align: middle
 
     img
-      border-radius: 6px
+      @extend .avatar
 
   .item-list-item-container
     padding-left: 50px
@@ -60,6 +60,9 @@ body
     .comment-avatar
       float: left
       height: 40px
+
+      img
+        @extend .avatar
 
   .comment-container
     padding: 0.2em 0
@@ -114,3 +117,6 @@ body
 
   h5
     font-size: 16px
+
+.avatar
+  border-radius: 6px
