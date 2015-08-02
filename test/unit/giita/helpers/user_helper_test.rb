@@ -26,4 +26,12 @@ class Giita::Helpers::UserHelperTest < Test::Unit::TestCase
       end
     end
   end
+
+  test '#link_to_user_with_avatar' do
+    user = {}
+    stub(user).login { 'yuya-takeyama' }
+    stub(user).avatar_url { 'http://example.com/avatar.jpg' }
+
+    assert_equal link_to_user_with_avatar(user), %Q{<a href="/users/yuya-takeyama"><img src="http:&#x2F;&#x2F;example.com&#x2F;avatar.jpg" alt="@yuya-takeyama" width="40" height="40"></a>}
+  end
 end
