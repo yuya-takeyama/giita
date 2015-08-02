@@ -1,3 +1,4 @@
+require 'giita/helpers/user_helper'
 require 'giita/markdown_parser'
 
 require 'sinatra/base'
@@ -28,6 +29,8 @@ module Giita
       set :root, app_root
       set :public_folder, root + '/public'
       set :views, root + '/views'
+
+      helpers ::Giita::Helpers::UserHelper
     end
 
     configure :development do

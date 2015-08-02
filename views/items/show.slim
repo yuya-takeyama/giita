@@ -16,7 +16,7 @@
 
             .comment-header
               .comment-author
-                = comment.user.login
+                == link_to_user comment.user
               .comment-time.timeago title=comment.created_at.iso8601
                 = comment.created_at
             .comment-body
