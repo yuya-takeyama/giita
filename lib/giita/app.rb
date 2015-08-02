@@ -1,3 +1,5 @@
+require 'giita/markdown_parser'
+
 require 'sinatra/base'
 require 'octokit'
 require 'slim'
@@ -17,6 +19,11 @@ module Giita
         raise 'Environmental variable GITHUB_PROJECT is not set'
       end
 
+      @@markdown_parser = ::Giita::MarkdownParser.new(
+        octokit: @@octokit,
+        github_project: @@github_project,
+      )
+
       app_root = File.dirname(__FILE__) + '/../..'
       set :public_folder, app_root + '/public'
       set :views, app_root + '/views'
@@ -35,8 +42,7 @@ module Giita
 
     get '/users/:user_login/items/:number' do
       @issue = @@octokit.issue @@github_project, params[:number]
-      @parsed_body = @@octokit.markdown(@issue.body, {mode: 'gfm', context: @@github_project})
-      @parsed_body.force_encoding "UTF-8"
+      @parsed_body = @@markdown_parser.parse(@issue.body)
 
       slim :'items/show', locals: {
         title: @issue.title
