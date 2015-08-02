@@ -36,9 +36,14 @@ module Giita
     configure :development do
       require 'sinatra/reloader' if development?
       register Sinatra::Reloader
+
       require 'better_errors'
       use ::BetterErrors::Middleware
       ::BetterErrors.application_root = settings.root
+
+      if ENV['HTTP_DUMP_ENABLE']
+        require 'http-dump/enable'
+      end
     end
 
     get '/' do
