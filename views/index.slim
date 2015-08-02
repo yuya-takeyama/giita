@@ -4,8 +4,7 @@
       - @issues.each do |issue|
         .item-list-item
           .item-list-item-avatar
-            a href="/users/#{issue.user.login}"
-              img src=issue.user.avatar_url width=40 heigh=40
+            == link_to_user_with_avatar issue.user
           .item-list-item-container
             .item-list-item-container-header
               .item-list-item-author
