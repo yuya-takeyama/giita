@@ -6,6 +6,7 @@ gem 'octokit', '~> 4.0.1'
 gem 'sinatra', '~> 1.4.6'
 gem 'slim'
 gem 'sass'
+gem 'omniauth-github'
 
 group :development do
   gem 'test-unit'

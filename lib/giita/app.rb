@@ -4,6 +4,7 @@ require 'giita/markdown_parser'
 require 'sinatra/base'
 require 'octokit'
 require 'slim'
+require 'omniauth-github'
 
 module Giita
   class App < Sinatra::Base
@@ -28,6 +29,14 @@ module Giita
         github_project: @@github_project,
       )
 
+      enable :sessions
+
+      use ::OmniAuth::Builder do
+        provider :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], {
+          scope: ['repo']
+        }
+      end
+
       app_root = File.dirname(__FILE__) + '/../..'
       set :root, app_root
       set :public_folder, root + '/public'
@@ -50,10 +59,37 @@ module Giita
       end
     end
 
+    before do
+      unless request.path_info =~ %r{/(?:auth/|login)}
+        unless logged_in?
+          redirect '/login?to=' + escape_uri(request.path_info)
+        end
+      end
+    end
+
     get '/' do
       @issues = @@octokit.issues @@github_project, per_page: 20
 
       slim :index
+    end
+
+    get '/login' do
+      slim :login
+    end
+
+    get '/auth/github/callback' do
+      session['github_oauth'] = env['omniauth.auth'][:credentials]
+      to = env['omniauth.params']['to']
+
+      if to and to != ''
+        redirect URI.parse(to).path
+      else
+        redirect '/'
+      end
+    end
+
+    get '/auth/failure' do
+      raise 'failure'
     end
 
     get '/users/:user_login/items/:number' do
@@ -73,6 +109,24 @@ module Giita
 
     get '/style.css' do
       sass :style
+    end
+
+    helpers do
+      def logged_in?
+        session.key? 'github_oauth'
+      end
+
+      def escape_uri(s)
+        ::Rack::Utils.escape s
+      end
+
+      def github_oauth_link
+        if params[:to] and params[:to] != ''
+          '/auth/github?to=' + escape_uri(params[:to])
+        else
+          '/auth/githuab'
+        end
+      end
     end
   end
 end
