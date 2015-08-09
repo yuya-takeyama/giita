@@ -8,6 +8,20 @@ require 'omniauth-github'
 
 module Giita
   class App < Sinatra::Base
+    configure :development do
+      require 'sinatra/reloader' if development?
+      register Sinatra::Reloader
+
+      require 'better_errors'
+      use ::BetterErrors::Middleware
+      ::BetterErrors.application_root = settings.root
+
+      if ENV['HTTP_DUMP_ENABLE']
+        require 'http-dump/enable'
+        HTTPDump.output_encoding = 'utf-8'
+      end
+    end
+
     configure do
       if ENV['GITHUB_CLIENT_ID'] and ENV['GITHUB_CLIENT_SECRET']
         @@octokit = ::Octokit::Client.new(
@@ -46,25 +60,15 @@ module Giita
       helpers ::Giita::Helpers::UserHelper
     end
 
-    configure :development do
-      require 'sinatra/reloader' if development?
-      register Sinatra::Reloader
-
-      require 'better_errors'
-      use ::BetterErrors::Middleware
-      ::BetterErrors.application_root = settings.root
-
-      if ENV['HTTP_DUMP_ENABLE']
-        require 'http-dump/enable'
-        HTTPDump.output_encoding = 'utf-8'
-      end
-    end
-
     before do
       unless request.path_info =~ %r{/(?:auth/|login)}
         unless logged_in?
-          redirect '/login?to=' + escape_uri(request.path_info)
+          redirect login_uri
         end
+      end
+
+      if logged_in?
+        @@octokit.access_token = session['github_oauth']['token']
       end
     end
 
@@ -75,7 +79,17 @@ module Giita
     end
 
     get '/login' do
-      slim :login
+      if logged_in?
+        redirect '/'
+      else
+        slim :login
+      end
+    end
+
+    get '/logout' do
+      session.clear
+
+      redirect login_uri_for(only_path(params[:to]))
     end
 
     get '/auth/github/callback' do
@@ -83,7 +97,7 @@ module Giita
       to = env['omniauth.params']['to']
 
       if to and to != ''
-        redirect URI.parse(to).path
+        redirect only_path(to)
       else
         redirect '/'
       end
@@ -127,6 +141,30 @@ module Giita
         else
           '/auth/github'
         end
+      end
+
+      def github_user
+        @github_user ||= @@octokit.user
+      end
+
+      def login_uri
+        login_uri_for request.path_info
+      end
+
+      def login_uri_for(path)
+        '/login?to=' + escape_uri(path)
+      end
+
+      def logout_uri
+        '/logout?to=' + escape_uri(request.path_info)
+      end
+
+      def mypage_uri
+        "/users/" + github_user.login if logged_in?
+      end
+
+      def only_path(uri)
+        URI.parse(uri).path
       end
     end
   end

@@ -13,6 +13,23 @@ html
       .container
         .navbar-header
           a.navbar-brand href="/" Giita
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            - if logged_in?
+              li.dropdown
+                a.dropdown-toggle href="#" data-toggle="dropdown" role="buttona" aria-haspopup="true" aria-expanded="false"
+                  img src=github_user.avatar_url width=20 height=20
+                  =" "
+                  =github_user.login
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a href=mypage_uri My Page
+                  li
+                    a href=logout_uri Logout
+            - else
+              li
+                a href=login_uri Login
     .container
       == yield
     script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"
