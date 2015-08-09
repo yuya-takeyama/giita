@@ -4,6 +4,10 @@
   "repository": "https://github.com/yuya-takeyama/giita",
   "keywords": ["qiita", "github", "issues", "markdown"],
   "env": {
+    "SESSION_SECRET": {
+      "description": "Secret key for session",
+      "generator": "secret"
+    },
     "GITHUB_CLIENT_ID": {
       "description": "Client ID for GitHub OAuth application",
       "required": true

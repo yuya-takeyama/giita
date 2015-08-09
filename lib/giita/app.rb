@@ -30,6 +30,7 @@ module Giita
       )
 
       enable :sessions
+      set :session_secret, ENV['SESSION_SECRET']
 
       use ::OmniAuth::Builder do
         provider :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], {
