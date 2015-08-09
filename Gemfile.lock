@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/yuya-takeyama/http-dump.git
+  revision: 6e288dfada48d89c2acf299a57efc7ce5b98d09c
+  branch: output_encoding_option
+  specs:
+    http-dump (0.1.0)
+      webmock
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -41,8 +49,6 @@ GEM
     guard-test (2.0.6)
       guard-compat (~> 1.2)
       test-unit (~> 3.0)
-    http-dump (0.1.0)
-      webmock
     http_parser.rb (0.6.0)
     listen (3.0.3)
       rb-fsevent (>= 0.9.3)
@@ -114,7 +120,7 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-test
-  http-dump
+  http-dump!
   octokit (~> 4.0.1)
   pry
   sass

@@ -18,5 +18,5 @@ group :development do
   gem 'foreman'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'http-dump'
+  gem 'http-dump', github: 'yuya-takeyama/http-dump', branch: 'output_encoding_option'
 end

@@ -43,6 +43,7 @@ module Giita
 
       if ENV['HTTP_DUMP_ENABLE']
         require 'http-dump/enable'
+        HTTPDump.output_encoding = 'utf-8'
       end
     end
 
