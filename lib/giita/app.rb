@@ -125,7 +125,7 @@ module Giita
         if params[:to] and params[:to] != ''
           '/auth/github?to=' + escape_uri(params[:to])
         else
-          '/auth/githuab'
+          '/auth/github'
         end
       end
     end
