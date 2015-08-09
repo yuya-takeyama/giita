@@ -4,8 +4,12 @@
   "repository": "https://github.com/yuya-takeyama/giita",
   "keywords": ["qiita", "github", "issues", "markdown"],
   "env": {
-    "GITHUB_ACCESS_TOKEN": {
-      "description": "Access token for GitHub API",
+    "GITHUB_CLIENT_ID": {
+      "description": "Client ID for GitHub OAuth application",
+      "required": true
+    },
+    "GITHUB_CLIENT_SECRET": {
+      "description": "Client Secret for GitHub OAuth application",
       "required": true
     },
     "GITHUB_PROJECT": {

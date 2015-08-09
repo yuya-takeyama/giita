@@ -8,10 +8,13 @@ require 'slim'
 module Giita
   class App < Sinatra::Base
     configure do
-      if ENV['GITHUB_ACCESS_TOKEN']
-        @@octokit = ::Octokit::Client.new(access_token: ENV['GITHUB_ACCESS_TOKEN'])
+      if ENV['GITHUB_CLIENT_ID'] and ENV['GITHUB_CLIENT_SECRET']
+        @@octokit = ::Octokit::Client.new(
+          client_id: ENV['GITHUB_CLIENT_ID'],
+          client_secret: ENV['GITHUB_CLIENT_SECRET'],
+        )
       else
-        raise 'Environmental variable GITHUB_ACCESS_TOKEN is not set'
+        raise 'Environmental variables GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET is not set'
       end
 
       if ENV['GITHUB_PROJECT']
