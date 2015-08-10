@@ -10,6 +10,10 @@ module Giita
       @request = request
     end
 
+    def has_prev_page
+      @page > 1
+    end
+
     def next_page_uri
       path = @request.path
       query_params = ::Rack::Utils.parse_query(@request.query_string)
