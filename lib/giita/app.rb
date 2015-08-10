@@ -39,7 +39,7 @@ module Giita
         raise 'Environmental variable GITHUB_PROJECT is not set'
       end
 
-      @@markdown_parser = ::Giita::MarkdownParser.new(
+      @@markdown_parser = MarkdownParser.new(
         octokit: @@octokit,
         github_project: @@github_project,
       )
@@ -62,7 +62,7 @@ module Giita
       set :public_folder, root + '/public'
       set :views, root + '/views'
 
-      helpers ::Giita::Helpers::UserHelper
+      helpers Helpers::UserHelper
     end
 
     before do
