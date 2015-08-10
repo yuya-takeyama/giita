@@ -1,4 +1,5 @@
 require 'giita/helpers/user_helper'
+require 'giita/issue_finder'
 require 'giita/markdown_parser'
 
 require 'sinatra/base'
@@ -39,6 +40,10 @@ module Giita
       end
 
       @@markdown_parser = ::Giita::MarkdownParser.new(
+        octokit: @@octokit,
+        github_project: @@github_project,
+      )
+      @@issue_finder = IssueFinder.new(
         octokit: @@octokit,
         github_project: @@github_project,
       )
@@ -105,6 +110,10 @@ module Giita
 
     get '/auth/failure' do
       raise 'failure'
+    end
+
+    get '/users/:user_login' do
+      @issues, @pager = @@issue_finder.user_issues(params[:user_login], request)
     end
 
     get '/users/:user_login/items/:number' do
