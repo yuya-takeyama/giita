@@ -2,16 +2,17 @@ require 'rack/utils'
 
 module Giita
   class Pager
-    attr_reader :page, :has_next_page
+    attr_reader :has_next_page
 
-    def initialize(page: , has_next_page: )
+    def initialize(page: , has_next_page: , request: )
       @page = page
       @has_next_page = has_next_page
+      @request = request
     end
 
-    def next_page_uri(request)
-      path = request.path
-      query_params = ::Rack::Utils.parse_query(request.query_string)
+    def next_page_uri
+      path = @request.path
+      query_params = ::Rack::Utils.parse_query(@request.query_string)
       query_params['page'] = if query_params.key? 'page'
                                query_params['page'].to_i + 1
                              else
@@ -21,9 +22,9 @@ module Giita
       path + (query_string and query_string != '' ? "?#{query_string}" : '')
     end
 
-    def prev_page_uri(request)
-      path = request.path
-      query_params = ::Rack::Utils.parse_query(request.query_string)
+    def prev_page_uri
+      path = @request.path
+      query_params = ::Rack::Utils.parse_query(@request.query_string)
       query_params['page'] = if query_params.key? 'page'
                                query_params['page'].to_i - 1
                              else

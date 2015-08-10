@@ -5,40 +5,40 @@ module Giita
   class PagerTest < Test::Unit::TestCase
     sub_test_case '#next_page_uri' do
       test 'without query params' do
-        pager = Pager.new(page: 1, has_next_page: true)
         request = stub_request(path: '/issues', query_string: '')
+        pager = Pager.new(page: 1, has_next_page: true, request: request)
 
         assert do
-          pager.next_page_uri(request) == '/issues?page=2'
+          pager.next_page_uri == '/issues?page=2'
         end
       end
 
       test 'with query params' do
-        pager = Pager.new(page: 1, has_next_page: true)
         request = stub_request(path: '/issues', query_string: 'foo=bar')
+        pager = Pager.new(page: 1, has_next_page: true, request: request)
 
         assert do
-          pager.next_page_uri(request) == '/issues?foo=bar&page=2'
+          pager.next_page_uri == '/issues?foo=bar&page=2'
         end
       end
     end
 
     sub_test_case '#prev_page_uri' do
       test 'without query params' do
-        pager = Pager.new(page: 2, has_next_page: true)
         request = stub_request(path: '/issues', query_string: '')
+        pager = Pager.new(page: 2, has_next_page: true, request: request)
 
         assert do
-          pager.prev_page_uri(request) == '/issues?page=1'
+          pager.prev_page_uri == '/issues?page=1'
         end
       end
 
       test 'with query params' do
-        pager = Pager.new(page: 2, has_next_page: true)
         request = stub_request(path: '/issues', query_string: 'foo=bar')
+        pager = Pager.new(page: 2, has_next_page: true, request: request)
 
         assert do
-          pager.prev_page_uri(request) == '/issues?foo=bar&page=1'
+          pager.prev_page_uri == '/issues?foo=bar&page=1'
         end
       end
     end
