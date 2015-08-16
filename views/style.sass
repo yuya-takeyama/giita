@@ -86,6 +86,41 @@ body
       margin: 0.5em 0
       padding: 0.2em 0.5em
 
+.user-detail
+  .user-detail-header
+    .user-detail-header-avatar
+      float: left
+
+      img
+        @extend .avatar
+
+    .user-detail-header-right
+      float: left
+      margin: 0 1em
+
+      .user-detail-login
+        font-size: 140%
+
+      .user-detail-name
+        font-size: 240%
+
+  .user-detail-item-list-container
+    @extend .white-container
+    margin-top: 1em
+    padding: 1.2em 2.0em
+
+    .user-detail-item
+      border-top: 1px solid #f6f6f6
+      padding: 1em 0
+
+      .user-detail-item-title
+        font-size: 140%
+
+      .user-detail-item-time
+
+    .user-detail-item:first-child
+      border-top: none
+
 .white-container
   background-color: #fff
   border: 1px #eee solid

@@ -1,0 +1,26 @@
+.row
+  .col-md-12
+    .user-detail
+      .user-detail-header
+        .user-detail-header-avatar
+          img src=@user.avatar_url width=200
+        .user-detail-header-right
+          .user-detail-name
+            = @user.name
+          .user-detail-login
+            == link_to_user @user
+
+      .clearfix
+
+      == slim :'_partials/_pager', locals: {pager: @pager}
+
+      .user-detail-item-list-container
+        - @issues.each do |issue|
+          .user-detail-item
+            .user-detail-itemtime
+              .timeago title=issue.created_at.iso8601
+                = issue.created_at
+            .user-detail-item-title
+              == link_to_issue issue
+
+      == slim :'_partials/_pager', locals: {pager: @pager}

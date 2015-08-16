@@ -1,0 +1,22 @@
+.nav
+  ul.pager
+    - if @pager.has_prev_page
+      li.previous
+        a href=@pager.prev_page_uri
+          span aria-hidden="true" &larr;
+          = " Newer"
+    - else
+      li.previous.disabled
+        a href="#"
+          span aria-hidden="true" &larr;
+          = " Newer"
+    - if @pager.has_next_page
+      li.next
+        a href=@pager.next_page_uri
+          = "Older "
+          span aria-hidden="true" &rarr;
+    - else
+      li.next.disabled
+        a href="#"
+          = "Older "
+          span aria-hidden="true" &rarr;

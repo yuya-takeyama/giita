@@ -114,6 +114,9 @@ module Giita
 
     get '/users/:user_login' do
       @issues, @pager = @@issue_finder.user_issues(params[:user_login], request)
+      @user = @@octokit.user params[:user_login]
+
+      slim :'users/show'
     end
 
     get '/users/:user_login/items/:number' do
@@ -136,6 +139,10 @@ module Giita
     end
 
     helpers do
+      def h(text)
+        ::Rack::Utils.escape_html text
+      end
+
       def logged_in?
         session.key? 'github_oauth'
       end
@@ -174,6 +181,11 @@ module Giita
 
       def only_path(uri)
         URI.parse(uri).path
+      end
+
+      def link_to_issue(issue)
+        uri = '/users/%s/items/%d' % [escape_uri(issue.user.login), issue.number]
+        '<a href="%s">%s</a>' % [h(uri), h(issue.title)]
       end
     end
   end
