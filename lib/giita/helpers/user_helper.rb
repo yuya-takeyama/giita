@@ -6,7 +6,7 @@ module Giita
       def link_to_user(user)
         user = user.login if user.respond_to? :login
 
-        %Q{<a href="/users/%s">%s</a>} % [h(user), h(user)]
+        %Q{<a href="/users/%s">@%s</a>} % [h(user), h(user)]
       end
 
       def link_to_user_with_avatar(user)
