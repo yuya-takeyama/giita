@@ -78,7 +78,7 @@ module Giita
     end
 
     get '/' do
-      @issues = @@octokit.issues @@github_project, per_page: 20
+      @issues, @pager = @@issue_finder.issues(request)
 
       slim :index
     end

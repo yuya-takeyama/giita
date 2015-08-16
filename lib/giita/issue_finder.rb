@@ -8,17 +8,35 @@ module Giita
       @per_page = 20
     end
 
+    def issues(request)
+      page = request.params['page'].to_i
+      page = 1 if page < 1
+
+      issues = @octokit.issues(@github_project, page: page, per_page: @per_page)
+
+      has_next_page = !!@octokit.last_response.rels[:next]
+
+      [
+        issues,
+        Pager.new(
+          page: page,
+          has_next_page: has_next_page,
+          request: request,
+        )
+      ]
+    end
+
     def user_issues(author, request)
       page = request.params['page'].to_i
       page = 1 if page < 1
 
       q = "author:#{author} type:issue repo:#{@github_project}"
-      result = @octokit.search_issues(q, page: page, per_page: @per_page + 1)
+      result = @octokit.search_issues(q, page: page, per_page: @per_page)
 
-      has_next_page = !!result.items[@per_page]
+      has_next_page = !!@octokit.last_response.rels[:next]
 
       [
-        result.items[0, @per_page],
+        result.items,
         Pager.new(
           page: page,
           has_next_page: has_next_page,

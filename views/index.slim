@@ -1,5 +1,7 @@
 .row
   .col-md-12
+    == slim :'_partials/_pager', locals: {pager: @pager}
+
     .item-list-container
       - @issues.each do |issue|
         .item-list-item
@@ -16,3 +18,5 @@
               .item-list-item-title
                 a href="/users/#{issue.user.login}/items/#{issue.number}"
                   = issue.title
+
+    == slim :'_partials/_pager', locals: {pager: @pager}
